@@ -11,7 +11,7 @@ import { Link } from 'react-router-dom';
 const DashboardNav = (props) =>  {
     return(
         <div>
-            <Nav className="col-md-12 d-none d-md-block sidebar"
+            <Nav className="col-md-12 d-md-block sidebar"
             activeKey="/dashboard">
             <div>
                 {/* [ORG LOGO IF PROVIDED] */}
@@ -44,14 +44,14 @@ const DashboardNav = (props) =>  {
                 <Nav.Item>
                     <Nav.Link as={Link} to="/dashboard/events"><FontAwesomeIcon icon={faCalendarAlt} />   Manage Events</Nav.Link>
                 </Nav.Item>
+                
+                <Nav.Item id="logoutIcon">
+                    <Nav.Link as={Link} to="/logout"><FontAwesomeIcon icon={faSignOutAlt} /> Log Out </Nav.Link>
+                </Nav.Item>
                
             </Nav>
             
-            <Nav>
-                <Nav.Item className="logout">
-                    <Nav.Link as={Link} to="/logout"><FontAwesomeIcon icon={faSignOutAlt} /> Log Out </Nav.Link>
-                </Nav.Item>
-            </Nav>
+            
             
         </div>
     );
