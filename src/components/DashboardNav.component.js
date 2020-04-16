@@ -10,7 +10,6 @@ import { Link } from 'react-router-dom';
 
 const DashboardNav = (props) =>  {
     return(
-        <div>
             <Nav className="col-md-12 d-md-block sidebar"
             activeKey="/dashboard">
             <div>
@@ -52,8 +51,6 @@ const DashboardNav = (props) =>  {
             </Nav>
             
             
-            
-        </div>
     );
 }
 
