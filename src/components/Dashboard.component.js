@@ -41,10 +41,10 @@ class Dashboard extends Component {
             
                 <Container fluid>
                     <Row>
-                        <Col xs={2} id="sidebar-wrapper">      
+                        <Col xs={3} id="sidebar-wrapper">      
                             <DashboardNav user={this.state.user}/>
                         </Col>
-                        <Col  xs={10} id="page-content-wrapper">
+                        <Col  xs={9} id="page-content-wrapper">
                             <Switch>
                                 <Route exact path={path}>
                                     <Row>

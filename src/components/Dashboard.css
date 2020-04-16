@@ -3,54 +3,53 @@
 }
 
 .sidebar {
-    position: fixed;
+    /* position: fixed;
     top: 0;
     bottom: 0;
     left: 0;
-    min-height: 100vh !important;
-    width: 200vw;
-    z-index: 100;
+    z-index: 100; */
     padding: 20px 0 0;
-    box-shadow: inset -1px 0 0 rgba(0, 0, 0, .1);
-    background-color: #404d67;
-    font-family: sans-serif;
+    min-height: 100vh !important;
+    font-family: sans-serif; 
+    
     
 }
 #sidebar-wrapper{
-    min-height: 100vh !important;
-    width: 200vw;
+    
     margin-left: -1rem;
     -webkit-transition: margin .25s ease-out;
     -moz-transition: margin .25s ease-out;
     -o-transition: margin .25s ease-out;
     transition: margin .25s ease-out;
+    min-height: 100vh !important;
+    background-color: #404d67;
+    box-shadow: inset -1px 0 0 rgba(0, 0, 0, .1);
     
-}
-#sidebar-wrapper .sidebar-heading {
-    padding: 0.875rem 1.25rem;
-    font-size: 1.2rem;
 }
 
 #page-content-wrapper {
     width: 100%;
 }
 
-.nav-item, .nav-link {
-    color: #aab7d0;
+ul {
+    list-style: none;
 }
 
-.nav-item > .active {
-    color: #5cb5ff;
+li, a {
+    color: #aab7d0 !important;
+    margin: 10px 10px 10px 0px;
 }
 
-.nav-link:hover{
+
+li:hover{
     color: #5cb5ff;
 }
 
 
 .divider {
     background: #aab7d0;
-    margin: auto;
+    margin: 5px 5px 5px 0px;
+    width: 98%
 }
 
 #calendar-wrapper {
