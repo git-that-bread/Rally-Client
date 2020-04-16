@@ -9,7 +9,7 @@
     left: 0;
     min-height: 100vh !important;
     z-index: 100;
-    padding: 48px 0 0;
+    padding: 20px 0 0;
     box-shadow: inset -1px 0 0 rgba(0, 0, 0, .1);
     background-color: #404d67;
     font-family: sans-serif;
@@ -62,5 +62,11 @@
 #events-table-wrapper {
     /* margin: 10px; */
     width: 100%;
+}
+
+.welcome-alert {
+  width: calc(95% - 5px);
+  margin: 0 auto;
+  text-align: center;
 }
 

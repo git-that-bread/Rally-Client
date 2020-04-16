@@ -1,15 +1,20 @@
 import React, {Component} from 'react';
-import { Button, FormGroup, FormControl, FormLabel } from "react-bootstrap";
+import { Button, FormGroup, FormControl, FormLabel, Alert } from "react-bootstrap";
 import axios from 'axios';
+import ErrorMessage from './ErrorMessage.component';
+import { getJwt } from './helpers/jwt';
 import "../Login.css";
 
-class LoginOrganization extends Component {
+class LoginVolunteer extends Component {
+
     constructor(props) {
         super(props);
 
         this.state = {
             username: '',
-            password: ''
+            password: '',
+            loggedIn: false,
+            error: null
         };
     }
 
@@ -30,21 +35,36 @@ class LoginOrganization extends Component {
     handleSubmit = (e) => {
         console.log("submitted")
         e.preventDefault(); // avoids page reload
-        axios.post('http://localhost:8000/api/auth/login', {
+        axios.post(`${process.env.REACT_APP_API_URL}/auth/login`, {
             username: this.state.username,
             password: this.state.password
         }).then((res) => {
             console.log(res);
             localStorage.setItem('user-jwt', res.data.token);
+            this.props.history.replace('/dashboard');
+        }).catch((error) => {
+            console.log(error);
+            this.setState({error: error.response ? error.response.data.error : error});
         })
+    }
+
+    componentDidMount() {
+        const jwt = getJwt();
+        if(jwt) {
+           // redirect
+           this.props.history.replace('/dashboard');
+        }
     }
 
     render() {
         return(
             <div className="Login">
+            { this.state.error &&
+                <ErrorMessage errorMessage={this.state.error.message}></ErrorMessage>
+            }
                 <form onSubmit={this.handleSubmit}>
-                    <FormGroup controlId="username" bsSize="large">
-                    <FormLabel>admin username</FormLabel>
+                    <FormGroup controlId="username" bssize="large">
+                    <FormLabel>username</FormLabel>
                     <FormControl
                         autoFocus
                         type="username"
@@ -52,15 +72,15 @@ class LoginOrganization extends Component {
                         onChange={e => this.setUsername(e.target.value)}
                     />
                     </FormGroup>
-                    <FormGroup controlId="password" bsSize="large">
-                    <FormLabel>admin Password</FormLabel>
+                    <FormGroup controlId="password" bssize="large">
+                    <FormLabel>Password</FormLabel>
                     <FormControl
                         value={this.password}
                         onChange={e => this.setPassword(e.target.value)}
                         type="password"
                     />
                     </FormGroup>
-                    <Button block bsSize="large" disabled={!this.validateForm()} type="submit">
+                    <Button block bssize="large" disabled={!this.validateForm()} type="submit">
                         Login
                     </Button>
                 </form>
@@ -70,4 +90,4 @@ class LoginOrganization extends Component {
     }
 }
 
-export default LoginOrganization;
+export default LoginVolunteer;

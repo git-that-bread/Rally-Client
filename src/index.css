@@ -29,3 +29,12 @@ code {
   background-color: #f8f9fa;
 }
 
+.error-alert {
+  margin: 0 auto;
+  max-width: 320px;
+}
+
+.logo-brand {
+  width: 70px;
+  /* height: 50px; */
+}

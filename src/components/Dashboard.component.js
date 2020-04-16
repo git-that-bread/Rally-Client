@@ -2,27 +2,39 @@ import React, {Component} from 'react';
 import { withRouter } from 'react-router-dom';
 import { Row, Col, Container, Breadcrumb } from "react-bootstrap";
 import { Switch, Route } from 'react-router-dom';
-import ShiftRequestsTable from './ShiftRequestsTable.component';
 import Volunteers from './Volunteers.component';
 import Events from './Events.component';
 import DashboardNav from './DashboardNav.component';
-import { Link } from 'react-router-dom';
 import './Dashboard.css';
+import { UserContext } from './UserContext';
+import Authenticated from './Authenticated.component';
 
 
 class Dashboard extends Component {
+    static contextType = UserContext;
     constructor(props) {
         super(props);
 
         this.state = {
-            user: undefined,
-            userType: undefined
+            user: undefined
         };
     }
 
-    
+    componentDidMount() {
+        //It will get the data from context, and put it into the state.
+        console.log("State dashboard")
+        console.log(this.context)
+        this.setState({ user: this.context.user });
+        
+    }
+
     render() {
         const { path, url } = this.props.match;
+        if(!this.state.user) {
+            return(
+                <Authenticated/>
+            );
+        }
         return(
             
             <div className="wrapper">
@@ -30,7 +42,7 @@ class Dashboard extends Component {
                 <Container fluid>
                     <Row>
                         <Col xs={2} id="sidebar-wrapper">      
-                            <DashboardNav/>
+                            <DashboardNav user={this.state.user}/>
                         </Col>
                         <Col  xs={10} id="page-content-wrapper">
                             <Switch>
@@ -38,7 +50,6 @@ class Dashboard extends Component {
                                     <Row>
                                     <Col md={8}>
                                         <Row id="upcoming-events-wrapper">
-                                        upcoming-events-wrapper
                                         </Row>
                                         <Row>
                                             <Col id="shifts-requests-wrapper">

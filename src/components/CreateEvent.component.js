@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import { Button, FormGroup, FormControl, FormLabel, Modal } from "react-bootstrap";
+import DateTimePicker from 'react-datetime-picker';
 import axios from 'axios';
 import "../Login.css";
 
@@ -8,7 +9,12 @@ class CreateEvent extends Component {
         super(props);
 
         this.state = {
-            showModal: false
+            showModal: false,
+            name: '',
+            startTime: new Date(),
+            endTime: new Date(),
+            location: '',
+            organization: ''
         };
     }
 
@@ -19,15 +25,30 @@ class CreateEvent extends Component {
         this.setState({showModal: true});
     };
 
+    setEventName = (name) => {
+        this.setEventName({name})
+    };
+    
+    setStartTime = (date) => {
+        this.setState({ startTime: date });
+    };
+
+    setEndTime = (date) => {
+        this.setState({ endTime: date });
+    };
+
     handleSubmit = (e) => {
         console.log("submitted")
         e.preventDefault(); // avoids page reload
-        axios.post('http://localhost:8000/api/auth/login', {
-            username: this.state.username,
-            password: this.state.password
+        axios.post('http://localhost:8000/api/admin/event', {
+            name: this.state.name,
+            organization: this.state.organization,
+            startTime: this.state.startTime,
+            endTime: this.state.endTime
         }).then((res) => {
             console.log(res);
-            localStorage.setItem('user-jwt', res.data.token);
+        }).catch((error) => {
+            console.error(error)
         })
     }
 
@@ -37,23 +58,37 @@ class CreateEvent extends Component {
                 <Button variant="primary" onClick={this.handleShow}>
                     Create New Event
                 </Button>
-
                 <Modal show={this.state.showModal} onHide={this.handleClose}>
                     <Modal.Header closeButton>
                     <Modal.Title>Create an Event</Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
                         <form onSubmit={this.handleSubmit}>
-                            <FormGroup controlId="name" bsSize="large">
-                            <FormLabel>Event Name</FormLabel>
-                            <FormControl
-                                autoFocus
-                                type="text"
-                                value={this.name}
-                                onChange={e => this.setEventName(e.target.value)}
-                            />
+                            <FormGroup controlId="name" bssize="large">
+                                <FormLabel>Event Name</FormLabel>
+                                <FormControl
+                                    autoFocus
+                                    type="text"
+                                    value={this.name}
+                                    onChange={e => this.setEventName(e.target.value)}
+                                />
                             </FormGroup>
-                            {/* <Button block bsSize="large" disabled={!this.validateForm()} type="submit">
+                            <FormGroup controlId="name" bssize="large">
+                                <FormLabel> Event Start Time </FormLabel>
+                                <DateTimePicker
+                                    onChange={this.setStartTime}
+                                    value={this.state.startTime}
+                                />
+                            </FormGroup>
+                            <FormGroup controlId="name" bssize="large">
+                                <FormLabel> Event End Time </FormLabel>
+                                <DateTimePicker
+                                    onChange={this.setEndTime}
+                                    value={this.state.endTime}
+                                />
+                            </FormGroup>
+                            
+                            {/* <Button block bssize="large" disabled={!this.validateForm()} type="submit">
                                 Login
                             </Button> */}
                         </form>

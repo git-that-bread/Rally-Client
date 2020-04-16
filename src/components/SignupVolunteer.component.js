@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
 import { Button, FormGroup, FormControl, FormLabel } from "react-bootstrap";
+import ErrorMessage from './ErrorMessage.component';
+import { getJwt } from './helpers/jwt';
 import axios from 'axios';
 import "../Signup.css";
 
@@ -11,7 +13,8 @@ class SignupVolunteer extends Component {
             username: '',
             email: '',
             password: '',
-            userType: ''
+            userType: '',
+            error: null
         };
     }
 
@@ -40,7 +43,7 @@ class SignupVolunteer extends Component {
     handleSubmit = (e) => {
         console.log("submitted")
         e.preventDefault(); // avoids page reload
-        axios.post('http://localhost:8000/api/auth/signup', {
+        axios.post(`${process.env.REACT_APP_API_URL}/auth/signup`, {
             name: this.state.name,
             username: this.state.username,
             password: this.state.password,
@@ -51,15 +54,29 @@ class SignupVolunteer extends Component {
             // TODO: LOGIN and show dashboard
             //localStorage.setItem('user-jwt', res.data.token);
         }).catch((error) => {
-            console.log(error)
+            console.log(error.response.data.error)
+            this.setState({error: error.response.data.error});
         })
     }
 
+    componentDidMount() {
+        const jwt = getJwt();
+        if(jwt) {
+           // redirect
+           this.props.history.replace('/dashboard');
+        }
+    }
+
+
     render() {
+       
         return(
             <div className="Signup">
+            { this.state.error &&
+                <ErrorMessage errorMessage={this.state.error.message}></ErrorMessage>
+            }
                 <form onSubmit={this.handleSubmit}>
-                    <FormGroup controlId="name" bsSize="large">
+                    <FormGroup controlId="name" bssize="large">
                     <FormLabel>Name</FormLabel>
                     <FormControl
                         autoFocus
@@ -68,7 +85,7 @@ class SignupVolunteer extends Component {
                         onChange={e => this.setName(e.target.value)}
                     />
                     </FormGroup>
-                    <FormGroup controlId="username" bsSize="large">
+                    <FormGroup controlId="username" bssize="large">
                     <FormLabel>username</FormLabel>
                     <FormControl
                         autoFocus
@@ -77,7 +94,7 @@ class SignupVolunteer extends Component {
                         onChange={e => this.setUsername(e.target.value)}
                     />
                     </FormGroup>
-                    <FormGroup controlId="email" bsSize="large">
+                    <FormGroup controlId="email" bssize="large">
                     <FormLabel>Email</FormLabel>
                     <FormControl
                         autoFocus
@@ -86,7 +103,7 @@ class SignupVolunteer extends Component {
                         onChange={e => this.setEmail(e.target.value)}
                     />
                     </FormGroup>
-                    <FormGroup controlId="password" bsSize="large">
+                    <FormGroup controlId="password" bssize="large">
                     <FormLabel>Password</FormLabel>
                     <FormControl
                         value={this.password}
@@ -94,7 +111,7 @@ class SignupVolunteer extends Component {
                         type="password"
                     />
                     </FormGroup>
-                    <Button block bsSize="large" disabled={!this.validateForm()} type="submit">
+                    <Button block bssize="large" disabled={!this.validateForm()} type="submit">
                         Signup
                     </Button>
                 </form>

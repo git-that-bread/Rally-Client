@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
 import { Button, FormGroup, FormControl, FormLabel } from "react-bootstrap";
+import ErrorMessage from './ErrorMessage.component';
+import { getJwt } from './helpers/jwt';
 import axios from 'axios';
 import "../Signup.css";
 
@@ -51,11 +53,12 @@ class SignupOrganization extends Component {
         // TODO: more validation
         return this.state.username && this.state.password && this.state.email;
     }
+    
 
     handleSubmit = (e) => {
         console.log("submitted")
         e.preventDefault(); // avoids page reload
-        axios.post('http://localhost:8000/api/auth/signup', {
+        axios.post(`${process.env.REACT_APP_API_URL}/auth/signup`, {
             username: this.state.username,
             password: this.state.password,
             email: this.state.email,
@@ -69,16 +72,28 @@ class SignupOrganization extends Component {
             // TODO: LOGIN and show dashboard
             //localStorage.setItem('user-jwt', res.data.token);
         }).catch((error) => {
-            console.log(error)
+            console.log(error.response.data.error)
+            this.setState({error: error.response.data.error});
         })
         
+    }
+
+    componentDidMount() {
+        const jwt = getJwt();
+        if(jwt) {
+           // redirect
+           this.props.history.replace('/dashboard');
+        }
     }
 
     render() {
         return(
             <div className="Signup">
+                { this.state.error &&
+                    <ErrorMessage errorMessage={this.state.error.message}></ErrorMessage>
+                }
                 <form onSubmit={this.handleSubmit}>
-                    <FormGroup controlId="text" bsSize="large">
+                    <FormGroup controlId="text" bssize="large">
                     <FormLabel>Organization's Name</FormLabel>
                     <FormControl
                         value={this.orgName}
@@ -86,7 +101,7 @@ class SignupOrganization extends Component {
                         type="text"
                     />
                     </FormGroup>
-                    <FormGroup controlId="text" bsSize="large">
+                    <FormGroup controlId="text" bssize="large">
                     <FormLabel>Organization's Location</FormLabel>
                     <FormControl
                         value={this.location}
@@ -94,7 +109,7 @@ class SignupOrganization extends Component {
                         type="text"
                     />
                     </FormGroup>
-                    <FormGroup controlId="text" bsSize="large">
+                    <FormGroup controlId="text" bssize="large">
                     <FormLabel>Organization's Email</FormLabel>
                     <FormControl
                         value={this.orgEmail}
@@ -102,7 +117,7 @@ class SignupOrganization extends Component {
                         type="text"
                     />
                     </FormGroup>
-                    <FormGroup controlId="name" bsSize="large">
+                    <FormGroup controlId="name" bssize="large">
                     <FormLabel>Admin's Name</FormLabel>
                     <FormControl
                         autoFocus
@@ -111,7 +126,7 @@ class SignupOrganization extends Component {
                         onChange={e => this.setAdminName(e.target.value)}
                     />
                     </FormGroup>
-                    <FormGroup controlId="username" bsSize="large">
+                    <FormGroup controlId="username" bssize="large">
                     <FormLabel>Admin's Username</FormLabel>
                     <FormControl
                         autoFocus
@@ -120,7 +135,7 @@ class SignupOrganization extends Component {
                         onChange={e => this.setUsername(e.target.value)}
                     />
                     </FormGroup>
-                    <FormGroup controlId="email" bsSize="large">
+                    <FormGroup controlId="email" bssize="large">
                     <FormLabel>Admin's Email</FormLabel>
                     <FormControl
                         autoFocus
@@ -129,7 +144,7 @@ class SignupOrganization extends Component {
                         onChange={e => this.setEmail(e.target.value)}
                     />
                     </FormGroup>
-                    <FormGroup controlId="password" bsSize="large">
+                    <FormGroup controlId="password" bssize="large">
                     <FormLabel>Password</FormLabel>
                     <FormControl
                         value={this.password}
@@ -137,7 +152,7 @@ class SignupOrganization extends Component {
                         type="password"
                     />
                     </FormGroup>
-                    <Button block bsSize="large" disabled={!this.validateForm()} type="submit">
+                    <Button block bssize="large" disabled={!this.validateForm()} type="submit">
                         Signup
                     </Button>
                 </form>
