@@ -23,7 +23,7 @@ class MainNav extends Component {
 
     render() {
         return (
-            <div>
+            <div id="main-nav-wrapper">
                <Navbar bg="light" expand="lg">
                 <Navbar.Brand href="/"><img className="logo-brand" src= {process.env.PUBLIC_URL + "/assets/logo-name.png"} ></img></Navbar.Brand>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />

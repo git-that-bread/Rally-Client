@@ -31,6 +31,7 @@ class Dashboard extends Component {
     render() {
         const { path, url } = this.props.match;
         if(!this.state.user) {
+            console.log("Not authenticated")
             return(
                 <Authenticated/>
             );

@@ -1,4 +1,4 @@
-import React, { Component, useState } from 'react';
+import React, { Component } from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import Home from './components/Home.component';
 import Authenticated from './components/Authenticated.component';
@@ -31,7 +31,7 @@ class App extends Component {
   
   render() {
     return (
-      <div>
+      <div className="main-wrapper">
         <UserContext.Provider value={this.state}>
           <BrowserRouter>
             <Switch>

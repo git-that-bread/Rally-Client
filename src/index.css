@@ -12,22 +12,34 @@ code {
     monospace;
 }
 
+.btn, .btn:hover, .btn:active, .btn:visited, .btn:focus  {
+  background-color: rgb(221, 67, 67) !important;
+  outline: none !important;
+  border-style: none !important;
+  box-shadow: none !important;
+}
+
+
+#main-nav-wrapper {
+  color: #8e8b8a ;
+}
+
 .landing-image {
-  margin: auto;    
   width: 100%;
   height: 100%;
 }
 
 .main-footer {
-  width: 100%;
+  /* width: 100%;
   height: 195px;
   position:absolute;
   left:0;
   bottom:0;
   right:0;
   padding: 10px;
-  background-color: #f8f9fa;
+  background-color: #f8f9fa; */
 }
+
 
 .error-alert {
   margin: 0 auto;

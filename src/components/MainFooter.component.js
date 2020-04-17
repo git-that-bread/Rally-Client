@@ -4,12 +4,8 @@ import '../index.css';
 
 const MainFooter = () => {
     return (
-        <div>
-          <footer className="main-footer">
-            <p>FOOTER</p>
+        <footer className="main-footer">
         </footer>
-           
-        </div>
     );
 };
 
