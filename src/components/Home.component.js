@@ -2,7 +2,7 @@ import React from 'react';
 import MainFooter from "./MainFooter.component";
 import { Jumbotron, Button, Row, Col, Card} from "react-bootstrap";
 import IndexStyle from '../Index.module.css';
-import '../Index.css';
+import '../index.css';
 
 const Home = () => {
     return (
