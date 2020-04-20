@@ -1,10 +1,14 @@
 import React, {Component} from 'react';
+import {UserContext} from './UserContext';
 import { Button, FormGroup, FormControl, FormLabel, Modal } from "react-bootstrap";
 import DateTimePicker from 'react-datetime-picker';
+import ErrorMessage from './ErrorMessage.component';
+import { withRouter } from 'react-router-dom';
 import axios from 'axios';
 import "../Login.css";
 
 class CreateEvent extends Component {
+    static contextType = UserContext;
     constructor(props) {
         super(props);
 
@@ -14,7 +18,8 @@ class CreateEvent extends Component {
             startTime: new Date(),
             endTime: new Date(),
             location: '',
-            organization: ''
+            organization: '',
+            error: null
         };
     }
 
@@ -25,8 +30,8 @@ class CreateEvent extends Component {
         this.setState({showModal: true});
     };
 
-    setEventName = (name) => {
-        this.setEventName({name})
+    setEventName = (eventName) => {
+        this.setState({eventName})
     };
     
     setStartTime = (date) => {
@@ -37,19 +42,32 @@ class CreateEvent extends Component {
         this.setState({ endTime: date });
     };
 
+    setOrganization = (organization) => {
+        this.setState({organization});
+    }
+
     handleSubmit = (e) => {
         console.log("submitted")
         e.preventDefault(); // avoids page reload
-        axios.post('http://localhost:8000/api/admin/event', {
-            name: this.state.name,
+        const newEvent = {
+            eventName: this.state.eventName,
             organization: this.state.organization,
             startTime: this.state.startTime,
             endTime: this.state.endTime
-        }).then((res) => {
+        }
+        axios.post('http://localhost:8000/api/admin/event', newEvent).then((res) => {
             console.log(res);
+            this.handleClose();
+            window.location.reload();
         }).catch((error) => {
-            console.error(error)
-        })
+            console.error(error);
+            this.setState(error);
+            this.handleClose();
+        });
+    }
+
+    componentDidMount() {
+        this.setOrganization(this.context.user.underlyingUser.organization);
     }
 
     render() {
@@ -59,6 +77,9 @@ class CreateEvent extends Component {
                     Create New Event
                 </Button>
                 <Modal show={this.state.showModal} onHide={this.handleClose}>
+                    { this.state.error &&
+                        <ErrorMessage errorMessage={this.state.error.message}></ErrorMessage>
+                    }
                     <Modal.Header closeButton>
                     <Modal.Title>Create an Event</Modal.Title>
                     </Modal.Header>
@@ -97,8 +118,8 @@ class CreateEvent extends Component {
                     <Button variant="secondary" onClick={this.handleClose}>
                         Close
                     </Button>
-                    <Button variant="primary" onClick={this.handleClose}>
-                        Save Changes
+                    <Button variant="primary" onClick={this.handleSubmit}>
+                        Submit
                     </Button>
                     </Modal.Footer>
                 </Modal>
@@ -109,4 +130,4 @@ class CreateEvent extends Component {
     }
 }
 
-export default CreateEvent;
+export default withRouter(CreateEvent);

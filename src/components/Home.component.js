@@ -1,29 +1,29 @@
 import React from 'react';
-import MainNav from "./MainNav.component";
 import MainFooter from "./MainFooter.component";
 import { Jumbotron, Button, Row, Col, Card} from "react-bootstrap";
+import IndexStyle from '../Index.module.css';
+import '../Index.css';
 
 const Home = () => {
     return (
-        <div className="landing">
-          <MainNav></MainNav>
+        <div className={IndexStyle.landing}>
           <Jumbotron>
             <Row>
-                <Col className="landing-info">
+                <Col className={IndexStyle.landingInfo}>
                     <h1>A platform for non-profits to manage and track their volunteering activities.</h1>
                     <p>
                         Start using Rally today!
                     </p>
                     <p>
-                        <Button className="landing-button">Learn more</Button>
+                        <Button className={IndexStyle.landingButton}> Learn More </Button>
                     </p>
                 </Col>
-                <Col className="landing-info">
-                    <img className="landing-image" src= {process.env.PUBLIC_URL + "/assets/hugo-productive-work.png"} ></img>
+                <Col className={IndexStyle.landingInfo}>
+                    <img className={IndexStyle.landingImage} src= {process.env.PUBLIC_URL + "/assets/hugo-productive-work.png"} ></img>
                 </Col>
             </Row>
            </Jumbotron>
-           <Row id="more info">
+           <Row id={IndexStyle.moreInfo}>
                 <Col>
                     <Card>
                         <Card.Body>
@@ -31,7 +31,7 @@ const Home = () => {
                             <Card.Text>
                                 Manage, schedule and coordinate volunteering events through our calendar view UI.
                             </Card.Text>
-                            <Button variant="primary">Create an Organization today!</Button>
+                            <Button variant="primary"> Learn More</Button>
                         </Card.Body>
                     </Card>
                 </Col>
@@ -43,7 +43,7 @@ const Home = () => {
                         <Card.Text>
                             Manage organization members and volunteers all in one place.
                         </Card.Text>
-                        <Button variant="primary">Get started! </Button>
+                        <Button variant="primary"> Learn More </Button>
                     </Card.Body>
                 </Card>
                 
@@ -56,7 +56,7 @@ const Home = () => {
                         <Card.Text>
                             Rally lets volunteers discover nonprofits and schedule their participation in events.
                         </Card.Text>
-                        <Button variant="primary">Start discovering! </Button>
+                        <Button variant="primary"> Learn More </Button>
                     </Card.Body>
                 </Card>
                 </Col>

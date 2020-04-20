@@ -5,7 +5,6 @@ import React, {Component} from 'react';
 import { Row, Col, Card, Table, Button} from "react-bootstrap";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser } from '@fortawesome/free-solid-svg-icons';
-import '../index.css';
 
 class ShiftRequestsTable extends Component {
     constructor(props) {

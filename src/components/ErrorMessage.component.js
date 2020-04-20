@@ -1,11 +1,11 @@
 
 import React from 'react';
 import { Alert } from "react-bootstrap";
-import '../index.css';
+import IndexStyle from '../Index.module.css';
 
 const ErrorMessage = (props) => {
     return(
-        <Alert variant="danger" className="error-alert">
+        <Alert variant="danger" className={IndexStyle.errorAlert}>
             <Alert.Heading>Error</Alert.Heading>
                 <p>
                     {props.errorMessage} Please try again.

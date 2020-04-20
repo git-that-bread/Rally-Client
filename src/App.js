@@ -5,10 +5,11 @@ import Authenticated from './components/Authenticated.component';
 import Login from './components/Login.component';
 import SignupVolunteer from './components/SignupVolunteer.component';
 import SignupOrganization from './components/SignupOrganization.component';
-import Dashboard from './components/Dashboard.component';
 import Logout from './components/Logout.component';
-import './App.css';
 import { UserContext } from './components/UserContext';
+import MainNav from "./components/MainNav.component";
+import Dashboard from './components/Dashboard.component';
+import IndexStyle from './Index.module.css';
 
 
 class App extends Component {
@@ -31,9 +32,10 @@ class App extends Component {
   
   render() {
     return (
-      <div className="main-wrapper">
+      <div className={IndexStyle.mainWrapper}>
         <UserContext.Provider value={this.state}>
           <BrowserRouter>
+          <MainNav/>
             <Switch>
               <Route path="/" exact component={Home} />
               <Route path="/login" exact component={Login} />

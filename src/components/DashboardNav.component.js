@@ -4,51 +4,52 @@ import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHome, faUsers, faCalendarAlt, faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
 import { Link } from 'react-router-dom';
+import DashboardStyle from './Dashboard.module.css';
 
 // This component will check that a user is logged in
 
 const DashboardNav = (props) =>  {
     return(
-            <nav className="sidebar"
+            <nav className={DashboardStyle.sidebar}
             activeKey="/dashboard">
             <div>
                 {/* [ORG LOGO IF PROVIDED] */}
             </div>
 
-            <ul>
-                <li >
-                    <Link to="/dashboard">
+            <ul className={DashboardStyle.sidebarList}>
+                <li className={DashboardStyle.sidebarItem}>
+                    <Link className={DashboardStyle.sidebarLink} to="/dashboard">
                         <FontAwesomeIcon icon={faHome} /> Dashboard
                     </Link>
                 </li>
-                    <hr className="divider"></hr>
+                    <hr className={DashboardStyle.divider}></hr>
                     {
                         props.user.userType == 'admin'
                         ?  
                         [
-                            <li >
-                                <Link to="/dashboard/volunteers">
+                            <li className={DashboardStyle.sidebarItem}>
+                                <Link className={DashboardStyle.sidebarLink} to={{pathname: "/dashboard/volunteers", user: props.user}}>
                                     <FontAwesomeIcon icon={faUsers} /> Manage Members
                                 </Link>
                             </li>
                         ]
                         :
                         [ 
-                            <li>
-                                <Link to="/dashboard/organizations">
+                            <li className={DashboardStyle.sidebarItem}>
+                                <Link className={DashboardStyle.sidebarLink} to={{pathname: "/dashboard/organizations", user: props.user}}>
                                     <FontAwesomeIcon icon={faCalendarAlt} />   Manage Organizations
                                 </Link>
                             </li>
                         ]
                     }
-                <li>  
-                    <Link to="/dashboard/events">
+                <li className={DashboardStyle.sidebarItem}>  
+                    <Link className={DashboardStyle.sidebarLink} to={{pathname: "/dashboard/events", user: props.user}}>
                         <FontAwesomeIcon icon={faCalendarAlt} />  Manage Events
                     </Link>
                 </li>
                 
-                <li> 
-                    <Link to="/logout">
+                <li className={DashboardStyle.sidebarItem}> 
+                    <Link className={DashboardStyle.sidebarLink} to="/logout">
                         <FontAwesomeIcon icon={faSignOutAlt}/> Logout
                     </Link>
                     

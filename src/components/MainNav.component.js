@@ -2,7 +2,7 @@
 import React, { Component } from 'react';
 import { Nav, Navbar, NavDropdown} from "react-bootstrap";
 import { Link } from 'react-router-dom';
-import '../index.css';
+import IndexStyle from '../Index.module.css';
 import { UserContext } from './UserContext';
 
 class MainNav extends Component {
@@ -23,14 +23,16 @@ class MainNav extends Component {
 
     render() {
         return (
-            <div id="main-nav-wrapper">
-               <Navbar bg="light" expand="lg">
-                <Navbar.Brand href="/"><img className="logo-brand" src= {process.env.PUBLIC_URL + "/assets/logo-name.png"} ></img></Navbar.Brand>
+            <div className={IndexStyle.mainNav} id="mainNavWrapper">
+               <Navbar className={IndexStyle.mainNav} id="mainNavbar" bg="light" expand="lg">
+                <Navbar.Brand href="/"><img className={IndexStyle.logoBrand} src= {process.env.PUBLIC_URL + "/assets/logo-name.png"} ></img></Navbar.Brand>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
-                <Navbar.Collapse id="basic-navbar-nav">
+                <Navbar.Collapse>
                 <Nav className="mr-auto">
-                    <Nav.Link as={Link} to="/" >Home</Nav.Link>
+                    <Nav.Link className="mainNav" as={Link} to="/" >Home</Nav.Link>
+                    { !this.state.loggedIn &&
                     <Nav.Link as={Link} to="/" >Create an Organization Account</Nav.Link>
+                    }
                 </Nav>
                 <Nav className="ml-auto nav-login">
                      <Nav.Link as={Link} to="/login" >Login</Nav.Link>
