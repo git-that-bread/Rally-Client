@@ -18,25 +18,23 @@ class Dashboard extends Component {
         super(props);
 
         this.state = {
-            user: undefined
+            user: undefined 
         };
     }
 
     componentDidMount() {
         //It will get the data from context, and put it into the state.
-        console.log("State dashboard")
-        console.log(this.context)
         this.setState({ user: this.context.user });
     }
 
     render() {
         const { path, url } = this.props.match;
-        if(!this.state.user) {
-            console.log("Not authenticated")
-            return(
-                <Authenticated/>
-            );
-        }
+        // if(!this.state.user) {
+        //     console.log("Not authenticated")
+        //     return(
+        //         <Authenticated/>
+        //     );
+        // }
         return(
             
             <div className={DashboardStyle.wrapper}>
