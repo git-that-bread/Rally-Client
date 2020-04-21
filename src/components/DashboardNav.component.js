@@ -47,13 +47,6 @@ const DashboardNav = (props) =>  {
                         <FontAwesomeIcon icon={faCalendarAlt} />  Manage Events
                     </Link>
                 </li>
-                
-                <li className={DashboardStyle.sidebarItem}> 
-                    <Link className={DashboardStyle.sidebarLink} to="/logout">
-                        <FontAwesomeIcon icon={faSignOutAlt}/> Logout
-                    </Link>
-                    
-                </li>
 
             </ul>
                 
