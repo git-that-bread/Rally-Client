@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { Alert } from "react-bootstrap";
-import IndexStyle from '../Index.module.css';
+import IndexStyle from '../index.module.css';
 
 const ErrorMessage = (props) => {
     return(

@@ -46,12 +46,17 @@ class CreateEvent extends Component {
         this.setState({organization});
     }
 
+    setLocation = (location) => {
+        this.setState({location});
+    }
+
     handleSubmit = (e) => {
         console.log("submitted")
         e.preventDefault(); // avoids page reload
         const newEvent = {
             eventName: this.state.eventName,
             organization: this.state.organization,
+            location: this.state.location,
             startTime: this.state.startTime,
             endTime: this.state.endTime
         }
@@ -108,10 +113,16 @@ class CreateEvent extends Component {
                                     value={this.state.endTime}
                                 />
                             </FormGroup>
-                            
-                            {/* <Button block bssize="large" disabled={!this.validateForm()} type="submit">
-                                Login
-                            </Button> */}
+
+                            <FormGroup controlId="location" bssize="large">
+                                <FormLabel> Location </FormLabel>
+                                <FormControl
+                                    autoFocus
+                                    type="text"
+                                    value={this.location}
+                                    onChange={e => this.setLocation(e.target.value)}
+                                />
+                            </FormGroup>
                         </form>
                     </Modal.Body>
                     <Modal.Footer>

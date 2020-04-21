@@ -9,7 +9,7 @@ import Logout from './components/Logout.component';
 import { UserContext } from './components/UserContext';
 import MainNav from "./components/MainNav.component";
 import Dashboard from './components/Dashboard.component';
-import IndexStyle from './Index.module.css';
+import IndexStyle from './index.module.css';
 
 
 class App extends Component {

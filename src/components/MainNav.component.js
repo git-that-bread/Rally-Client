@@ -2,7 +2,7 @@
 import React, { Component } from 'react';
 import { Nav, Navbar, NavDropdown} from "react-bootstrap";
 import { Link } from 'react-router-dom';
-import IndexStyle from '../Index.module.css';
+import IndexStyle from '../index.module.css';
 import { UserContext } from './UserContext';
 
 class MainNav extends Component {
@@ -23,8 +23,8 @@ class MainNav extends Component {
 
     render() {
         return (
-            <div className={IndexStyle.mainNav} id="mainNavWrapper">
-               <Navbar className={IndexStyle.mainNav} id="mainNavbar" bg="light" expand="lg">
+            <div className={IndexStyle.mainNav} id={IndexStyle.mainNavWrapper}>
+               <Navbar className={IndexStyle.mainNav} id={IndexStyle.mainNavbar} bg="light" expand="lg">
                 <Navbar.Brand href="/"><img className={IndexStyle.logoBrand} src= {process.env.PUBLIC_URL + "/assets/logo-name.png"} ></img></Navbar.Brand>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse>

@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { Button, FormGroup, FormControl, FormLabel } from "react-bootstrap";
+import { Button, FormGroup, FormControl, FormLabel , Alert} from "react-bootstrap";
 import ErrorMessage from './ErrorMessage.component';
 import { getJwt } from './helpers/jwt';
 import axios from 'axios';
@@ -16,7 +16,9 @@ class SignupOrganization extends Component {
             adminName: '',
             orgName: '',
             location: '',
-            orgEmail: ''
+            orgEmail: '',
+            success: false,
+            error: false
         };
     }
 
@@ -69,8 +71,7 @@ class SignupOrganization extends Component {
             userType: 'admin'
         }).then((res) => {
             console.log(res);
-            // TODO: LOGIN and show dashboard
-            //localStorage.setItem('user-jwt', res.data.token);
+            this.setState({success: true});
         }).catch((error) => {
             console.log(error.response.data.error)
             this.setState({error: error.response.data.error});
@@ -87,6 +88,20 @@ class SignupOrganization extends Component {
     }
 
     render() {
+        if(this.state.success) {
+            setTimeout(() => { 
+                this.props.history.replace('/login');
+            }, 5000)
+
+            return(
+                <div >
+                    <Alert variant="success">
+                        <p>Successfully created organization account!</p>
+                        <p>Redirecting to log in page...</p>
+                    </Alert>
+                </div>
+            );
+        }
         return(
             <div className="Signup">
                 { this.state.error &&

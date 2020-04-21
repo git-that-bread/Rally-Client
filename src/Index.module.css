@@ -1,18 +1,31 @@
 .mainNav#mainNavWrapper {
+    width: 100%;
     color: #8e8b8a ;
+    margin: auto;
 }
 
 .mainNav#mainNavbar {
     color: #8e8b8a ;
+    margin: auto 0;
 }
 
 .mainNav {
     color: #8e8b8a ;
+    
+}
+
+.landing {
+    height: 100vh;
+    width: 100%;
+    margin: 0 auto;
 }
 
 .landingImage {
-    width: 100%;
-    height: 100%;
+    width: 700px;
+    height: 500px;
+}
+.landingInfo {
+    margin: auto 0;
 }
 
 

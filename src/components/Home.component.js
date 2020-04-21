@@ -1,7 +1,7 @@
 import React from 'react';
 import MainFooter from "./MainFooter.component";
 import { Jumbotron, Button, Row, Col, Card} from "react-bootstrap";
-import IndexStyle from '../Index.module.css';
+import IndexStyle from '../index.module.css';
 import '../index.css';
 
 const Home = () => {
@@ -23,7 +23,7 @@ const Home = () => {
                 </Col>
             </Row>
            </Jumbotron>
-           <Row id={IndexStyle.moreInfo}>
+           <Row classname={IndexStyle.landing} id={IndexStyle.moreInfo}>
                 <Col>
                     <Card>
                         <Card.Body>
