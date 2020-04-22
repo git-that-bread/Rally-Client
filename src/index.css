@@ -4,3 +4,23 @@
     border-style: none !important;
     box-shadow: none !important;
 }
+
+.LearnMore-header{
+    padding: 50px;
+  text-align: center;
+  background-color: rgb(221, 67, 67);
+  color: white;
+}
+
+.column{
+  padding: 50px;
+  margin:auto;
+
+}
+
+.LearnMore-content{
+padding: 50px;
+text-align: left;
+background-color: rgb(221, 67, 67);
+color: white;
+}

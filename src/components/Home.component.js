@@ -15,7 +15,7 @@ const Home = () => {
                         Start using Rally today!
                     </p>
                     <p>
-                        <Button className={IndexStyle.landingButton}> Learn More </Button>
+                        <Button className={IndexStyle.landingButton} href="/learnMore"> Learn More </Button>
                     </p>
                 </Col>
                 <Col className={IndexStyle.landingInfo}>
@@ -26,28 +26,26 @@ const Home = () => {
            <Row classname={IndexStyle.landing} id={IndexStyle.moreInfo}>
                 <Col>
                 <Card
-                style={{ height: '20rem' }}
-                style={{ width: '30rem' }}> 
+                style={{ height: '20rem'} , {width: '30rem'}}> 
                         <Card.Body>
                             <Card.Title>Manage and Keep track of Events</Card.Title>
                             <Card.Text>
                                 Manage, schedule and coordinate volunteering events through our calendar view UI.
                             </Card.Text>
-                            <Button variant="primary"> Learn More</Button>
+                            <Button variant="primary" href="/learnMore#features"> Learn More</Button>
                         </Card.Body>
                     </Card>
                 </Col>
 
                 <Col>
                 <Card
-                style={{ height: '20rem' }}
-                style={{ width: '30rem' }}>
+                style={{ height: '20rem'} , {width: '30rem'}}>
                     <Card.Body>
                     <Card.Title> Manage volunteers and track shifts</Card.Title>
                         <Card.Text>
                             Manage organization members and volunteers all in one place.
                         </Card.Text>
-                        <Button variant="primary"> Learn More </Button>
+                        <Button variant="primary" href="/learnMore#features"> Learn More </Button>
                     </Card.Body>
                 </Card>
                 
@@ -55,14 +53,13 @@ const Home = () => {
 
                <Col>
                <Card
-                style={{ height: '20rem' }}
-                style={{ width: '30rem' }}>
+                style={{ height: '20rem'} , {width: '30rem'}}>
                     <Card.Body>
                     <Card.Title> Volunteer Access</Card.Title>
                         <Card.Text>
                             Rally lets volunteers discover nonprofits and schedule their participation in events.
                         </Card.Text>
-                        <Button variant="primary"> Learn More </Button>
+                        <Button variant="primary" href="/learnMore#features"> Learn More </Button>
                     </Card.Body>
                 </Card>
                 </Col>
