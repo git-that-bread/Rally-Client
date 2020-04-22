@@ -11,13 +11,13 @@ import DashboardStyle from './Dashboard.module.css';
 const DashboardNav = (props) =>  {
     return(
             <nav className={DashboardStyle.sidebar}
-            activeKey="/dashboard">
+            activekey="/dashboard">
             <div>
                 {/* [ORG LOGO IF PROVIDED] */}
             </div>
 
             <ul className={DashboardStyle.sidebarList}>
-                <li className={DashboardStyle.sidebarItem}>
+                <li key="dashboard-link" className={DashboardStyle.sidebarItem}>
                     <Link className={DashboardStyle.sidebarLink} to="/dashboard">
                         <FontAwesomeIcon icon={faHome} /> Dashboard
                     </Link>
@@ -27,7 +27,7 @@ const DashboardNav = (props) =>  {
                         props.user.userType == 'admin'
                         ?  
                         [
-                            <li className={DashboardStyle.sidebarItem}>
+                            <li key="manage-members-link" className={DashboardStyle.sidebarItem}>
                                 <Link className={DashboardStyle.sidebarLink} to={{pathname: "/dashboard/volunteers", user: props.user}}>
                                     <FontAwesomeIcon icon={faUsers} /> Manage Members
                                 </Link>
@@ -35,14 +35,14 @@ const DashboardNav = (props) =>  {
                         ]
                         :
                         [ 
-                            <li className={DashboardStyle.sidebarItem}>
+                            <li key="manage-orgs-link" className={DashboardStyle.sidebarItem}>
                                 <Link className={DashboardStyle.sidebarLink} to={{pathname: "/dashboard/organizations", user: props.user}}>
                                     <FontAwesomeIcon icon={faCalendarAlt} />   Manage Organizations
                                 </Link>
                             </li>
                         ]
                     }
-                <li className={DashboardStyle.sidebarItem}>  
+                <li key="manage-events-link" className={DashboardStyle.sidebarItem}>  
                     <Link className={DashboardStyle.sidebarLink} to={{pathname: "/dashboard/events", user: props.user}}>
                         <FontAwesomeIcon icon={faCalendarAlt} />  Manage Events
                     </Link>

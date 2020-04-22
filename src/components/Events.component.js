@@ -5,14 +5,17 @@ import React, {Component} from 'react';
 import { Switch, Route, Link, withRouter, useRouteMatch } from 'react-router-dom';
 import { Row, Col, Card, Table} from "react-bootstrap";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faUser } from '@fortawesome/free-solid-svg-icons';
-import { Calendar, momentLocalizer } from 'react-big-calendar';
+import { faSpinner } from '@fortawesome/free-solid-svg-icons';
 import CreateEvent from './CreateEvent.component';
 import VolunteerEvent from './VolunteerEvent.component';
 import moment from 'moment';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 import axios from 'axios';
 import {UserContext} from './UserContext';
+import UpcomingEvents from './UpcomingEvents.component';
+import PastEvents from './PastEvents.component';
+import DashboardStyle from './Dashboard.module.css';
+
 
 
 class Events extends Component {
@@ -21,17 +24,11 @@ class Events extends Component {
         super(props);
 
         this.state = {
-            events: [],
+            events: null,
+            loading: true,
             error: null
         };
     }
-
-    setEvents(events) {
-        console.log("Setting events")
-        console.log(events)
-        this.setState({ events });
-    }
-
 
     componentDidMount() {
         console.log("Events")
@@ -41,8 +38,8 @@ class Events extends Component {
             axios.get(`${process.env.REACT_APP_API_URL}/admin/events?orgId=${user.underlyingUser.organization}`)
             .then((res) => {
                 console.log(res);
-                this.setEvents(res.data.Events);
-                this.props.history.replace('/dashboard/events');
+                this.setState({events:res.data.Events});
+                this.setState({loading: false});
             }).catch((error) => {
                 console.log(error);
                 this.setState({error: error.response ? error.response.data.error : error});
@@ -54,86 +51,59 @@ class Events extends Component {
     
     render() {
         const { path, url } = this.props.match;
-        let rows = [];
+        let upcomingEvents = [];
+        let pastEvents = [];
         
-        if(this.state.events) {
-            for (const event of this.state.events) {
-                console.log("event: ", event)
-                rows.push(<tr>
-                    <td>
-                        <Link to={{
-                            pathname: `${path}/${event.eventName}`,
-                            state: {
-                                event
-                            }
-                            }}>
-                            <h6 >{event.eventName}</h6>
-                        </Link>
-                        
-                    </td>
-                    <td>
-                        <h6>{moment(event.startTime).format('lll')}</h6>
-                    </td>
-                    <td>
-                        <h6>{event.volunteers.length}</h6>
-                    </td>
-                </tr>)
+        if(!this.state.loading) {
+            for (const [index, event] of this.state.events.entries()) {
+                const endTime = event.endTime;
+
+                if(moment(endTime).isBefore(moment.now())) {
+                    pastEvents.push(event);
+                } else {
+                    upcomingEvents.push(event);
+                }
               }
+
               return(
                 <div>
                     <Switch>
                         <Route exact path={path}>
-                            <Row id="events-table-wrapper">
-                                <Col md={8}>
-                                    <Card className='Recent-Users'>
-                                        <Card.Header>
-                                            <Card.Title as='h5'>Upcoming Events</Card.Title>
-                                        </Card.Header>
-                                        <Card.Body className='px-0 py-2'>
-                                            <Table responsive hover>
-                                                <thead>
-                                                    <tr>
-                                                        <th>Name</th>
-                                                        <th>Date</th>
-                                                        <th>Volunteers</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    {rows}
-                                                </tbody>
-                                            </Table>
-                                        </Card.Body>
-                                    </Card>
+                            <Row id="events-wrapper">
+                                <Col className={DashboardStyle.events} md={9} id={DashboardStyle.eventsTableWrapper}>
+                                    <Row className={DashboardStyle.events} id={DashboardStyle.upcomingEventsTableWrapper}>
+                                        <UpcomingEvents events={upcomingEvents}></UpcomingEvents>
+                                    </Row>
+
+                                    <Row className={DashboardStyle.events} id={DashboardStyle.pastEventsTableWrapper}>
+                                        <PastEvents events={pastEvents}></PastEvents>
+                                    </Row>
+
                                 </Col>
-    
-                                <Col md={4}>
-                                {/* Create new Event Button and Modal */}
+
+                                <Col md={3}>
+                                    {/* Create new Event Button and Modal */}
                                     <CreateEvent></CreateEvent>
                                 </Col>
+                            
                             </Row>
-                            <Row id="calendar-wrapper">
-                                {/* <Calendar
-                                    events={this.state.events}
-                                    startAccessor="start"
-                                    endAccessor="end"
-                                    defaultDate={moment().toDate()}
-                                    localizer={localizer}
-                                /> */}
-                            </Row>
+                           
                         </Route>
-                        <Route path={`${path}/:eventName`} component={VolunteerEvent}>
+                        <Route path={`${path}/:eventId`} component={VolunteerEvent}>
                         </Route>
                     </Switch>
                     
                 </div>
             );
         } else {
-            return (
-                <div>
-                    <h6>No events found</h6>
+            return(
+
+                <div className={DashboardStyle.loader}>
+                    <FontAwesomeIcon icon={faSpinner} />
+                    Loading...
                 </div>
 
-            );
+            )
         }
         
         

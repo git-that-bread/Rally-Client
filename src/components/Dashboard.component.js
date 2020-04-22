@@ -6,9 +6,8 @@ import Volunteers from './Volunteers.component';
 import Events from './Events.component';
 import DashboardNav from './DashboardNav.component';
 import { UserContext } from './UserContext';
-import Authenticated from './Authenticated.component';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBell } from '@fortawesome/free-solid-svg-icons';
+import { faBell, faSpinner } from '@fortawesome/free-solid-svg-icons';
 import DashboardStyle from './Dashboard.module.css';
 
 
@@ -22,7 +21,7 @@ class Dashboard extends Component {
         };
     }
 
-    componentDidMount() {
+    componentWillMount() {
         //It will get the data from context, and put it into the state.
         this.setState({ user: this.context.user });
     }
@@ -30,9 +29,11 @@ class Dashboard extends Component {
     render() {
         const { path, url } = this.props.match;
         if(!this.state.user) {
-            console.log("Not authenticated")
             return(
-                <Authenticated/>
+                <div className={DashboardStyle.loader}>
+                    <FontAwesomeIcon icon={faSpinner} />
+                    Loading...
+                </div>
             );
         }
         return(
@@ -40,17 +41,17 @@ class Dashboard extends Component {
             <div className={DashboardStyle.wrapper}>
             
                 <Container fluid>
-                    <Row>
+                    <Row className={DashboardStyle.dashboard} id={DashboardStyle.dashboardWrapper}>
                         <Col xs={3} className={DashboardStyle.sidebar} id={DashboardStyle.sidebarWrapper}>      
                             <DashboardNav user={this.state.user}/>
                         </Col>
-                        <Col  xs={9} className={DashboardStyle.sidebar} id={DashboardStyle.pageContentWrapper}>
+                        <Col  xs={9} className={DashboardStyle.mainContentWrapper}>
                         <Row className={DashboardStyle.dashboardTitleWrapper}>
                          <h3 className={DashboardStyle.dashboardTitle}>Habitat for Humanity Dashboard</h3>
                         </Row>
                             <Switch>
                                 <Route exact path={path}>
-                                    <Row>
+                                    <Row className={DashboardStyle.dashboard} id={DashboardStyle.mainContent}>
                                     <Col md={9}>
                                     <Card>
                                     <Card.Header>

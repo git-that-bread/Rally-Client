@@ -23,7 +23,7 @@ const Home = () => {
                 </Col>
             </Row>
            </Jumbotron>
-           <Row classname={IndexStyle.landing} id={IndexStyle.moreInfo}>
+           <Row className={IndexStyle.landing} id={IndexStyle.moreInfo}>
                 <Col>
                     <Card>
                         <Card.Body>
