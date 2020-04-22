@@ -64,7 +64,7 @@ class LoginVolunteer extends Component {
             }
                 <form onSubmit={this.handleSubmit}>
                     <FormGroup controlId="username" bssize="large">
-                    <FormLabel>username</FormLabel>
+                    <FormLabel>Username</FormLabel>
                     <FormControl
                         autoFocus
                         type="username"
@@ -80,9 +80,12 @@ class LoginVolunteer extends Component {
                         type="password"
                     />
                     </FormGroup>
-                    <Button block bssize="large" disabled={!this.validateForm()} type="submit">
+                    <button class="btn btn-primary btn-lg btn-block" disabled={!this.validateForm()} type="submit">
                         Login
-                    </Button>
+                    </button>
+                    <a class="btn btn-secondary btn-lg btn-block" href="/" type="cancel">
+                        Cancel
+                    </a>
                 </form>
             </div>
         );
