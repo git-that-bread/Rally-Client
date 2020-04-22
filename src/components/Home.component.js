@@ -25,7 +25,9 @@ const Home = () => {
            </Jumbotron>
            <Row classname={IndexStyle.landing} id={IndexStyle.moreInfo}>
                 <Col>
-                    <Card>
+                <Card
+                style={{ height: '20rem' }}
+                style={{ width: '30rem' }}> 
                         <Card.Body>
                             <Card.Title>Manage and Keep track of Events</Card.Title>
                             <Card.Text>
@@ -37,7 +39,9 @@ const Home = () => {
                 </Col>
 
                 <Col>
-                <Card>
+                <Card
+                style={{ height: '20rem' }}
+                style={{ width: '30rem' }}>
                     <Card.Body>
                     <Card.Title> Manage volunteers and track shifts</Card.Title>
                         <Card.Text>
@@ -50,7 +54,9 @@ const Home = () => {
                 </Col>
 
                <Col>
-               <Card>
+               <Card
+                style={{ height: '20rem' }}
+                style={{ width: '30rem' }}>
                     <Card.Body>
                     <Card.Title> Volunteer Access</Card.Title>
                         <Card.Text>

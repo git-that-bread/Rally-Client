@@ -33,14 +33,13 @@ class MainNav extends Component {
                 
                     <Nav className="ml-auto nav-login">
                     { !this.context.user &&
-                    <div>
-                         <Nav.Link as={Link} to="/login" >Login</Nav.Link>
+                    <div class="d-flex flex-row-reverse"> 
                         <NavDropdown title="Signup" id="basic-nav-dropdown">
                         <NavDropdown.Item as={Link} to="/signupOrganization" >Organization</NavDropdown.Item>
                         <NavDropdown.Item as={Link} to="/signupVolunteer" >Volunteer</NavDropdown.Item>
                         </NavDropdown>
+                        <Nav.Link as={Link} to="/login" >Login</Nav.Link>
                     </div>
-                       
                     }
                     {this.context.user &&
                         <Nav.Link as={Link} className={DashboardStyle.sidebarLink} to="/logout">
