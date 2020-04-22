@@ -1,12 +1,13 @@
 .mainNav#mainNavWrapper {
     width: 100%;
-    color: #8e8b8a ;
+    color: hsl(15, 2%, 55%) ;
     margin: auto;
 }
 
 .mainNav#mainNavbar {
     color: #8e8b8a ;
     margin: auto 0;
+    padding-right: 7%;
 }
 
 .mainNav {

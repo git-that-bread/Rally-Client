@@ -48,7 +48,6 @@ class App extends Component {
             </Switch>
           </BrowserRouter>
         </UserContext.Provider>
-
       </div>
     );
   }
