@@ -31,23 +31,22 @@ class MainNav extends Component {
                     }
                 </Nav>
                 
-                    <Nav className="ml-auto nav-login">
+                <Nav className="ml-auto nav-login">
                     { !this.context.user &&
-                    <div>
-                         <Nav.Link as={Link} to="/login" >Login</Nav.Link>
+                    <ul>
+                        <Nav.Link as={Link} to="/login" >Login</Nav.Link>
                         <NavDropdown title="Signup" id="basic-nav-dropdown">
                         <NavDropdown.Item as={Link} to="/signupOrganization" >Organization</NavDropdown.Item>
                         <NavDropdown.Item as={Link} to="/signupVolunteer" >Volunteer</NavDropdown.Item>
                         </NavDropdown>
-                    </div>
-                       
+                    </ul>
                     }
                     {this.context.user &&
                         <Nav.Link as={Link} className={DashboardStyle.sidebarLink} to="/logout">
                             <FontAwesomeIcon icon={faSignOutAlt}/> Logout
                         </Nav.Link>
                     }
-                    </Nav>
+                </Nav>
                 
 
                
