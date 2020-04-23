@@ -47,9 +47,6 @@ class MainNav extends Component {
                         </Nav.Link>
                     }
                 </Nav>
-                
-
-               
                 </Navbar.Collapse>
                 </Navbar>
                
