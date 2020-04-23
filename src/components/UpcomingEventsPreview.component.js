@@ -30,34 +30,39 @@ class UpcomingEventsPreview extends Component {
         };
     }
 
-    setUpcomingEvents(events) {
+    handleEventSelect = (event) => {
+        // redirect to event page
+        this.props.history.replace(`/dashboard/events/${event.event._id}`);
+    }
+
+    setUpcomingEvents = (events) => {
+        console.log(events)
         let upcomingEvents = [];
         
-        if(!this.state.loading) {
-            for (const [index, event] of this.state.events.entries()) {
-                const endTime = event.endTime;
+        for (const [index, event] of events.entries()) {
+            const endTime = event.endTime;
 
-                if(moment(endTime).isAfter(moment.now())) {
-                    upcomingEvents.push(event);
-                }
-              }
-        }
+            if(moment(endTime).isAfter(moment.now())) {
+                upcomingEvents.push(event);
+            }
+          }
         this.setState({events: upcomingEvents});
     }
     
-    setCalendarEvents() {
+    setCalendarEvents = () => {
         let calendarEvents = [];
         for(var i = 0; i < this.state.events.length; i++) {
-            const event = event[i];
+            const event = this.state.events[i];
             calendarEvents.push({
                 id: event._id,
-                title: event.name,
+                title: event.eventName,
                 start: new Date(event.startTime),
                 end: new Date(event.endTime),
                 event: event 
             });
         }
-        this.setState({calendarEvents, calendarEvents});
+        this.setState({calendarEvents});
+        console.log("calendar events: " + this.state.calendarEvents)
     }
 
     componentDidMount() {
@@ -139,15 +144,17 @@ class UpcomingEventsPreview extends Component {
                     </Card>
                     {this.state.calendarEvents &&
                         <Calendar 
+                        selectable
                         events={this.state.calendarEvents}
                         startAccessor="start"
                         endAccessor="end"
                         defaultDate={moment().toDate()}
-                        defaultView={'week'}
+                        defaultView={'month'}
                         localizer={localizer}
                         style={{ height: 500 }}
                         min={new Date(2020, 10, 0, 6, 0, 0)}
-                        max={new Date(2020, 10, 0, 22, 0, 0)} 
+                        max={new Date(2020, 10, 0, 22, 0, 0)}
+                        onSelectEvent={this.handleEventSelect}
                     />
                     }
                     </div>
