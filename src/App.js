@@ -6,6 +6,7 @@ import Login from './components/Login.component';
 import SignupVolunteer from './components/SignupVolunteer.component';
 import SignupOrganization from './components/SignupOrganization.component';
 import Logout from './components/Logout.component';
+import LearnMore from './components/LearnMore.component';
 import { UserContext } from './components/UserContext';
 import MainNav from "./components/MainNav.component";
 import Dashboard from './components/Dashboard.component';
@@ -42,13 +43,13 @@ class App extends Component {
               <Route path="/signupVolunteer" exact component={SignupVolunteer} />
               <Route path="/signupOrganization" exact component={SignupOrganization} />
               <Route path="/logout" exact component={Logout} />
+              <Route path="/learnMore" exact component={LearnMore} />
               <Authenticated>
                 <Route path="/dashboard" component={Dashboard} />
               </Authenticated>
             </Switch>
           </BrowserRouter>
         </UserContext.Provider>
-
       </div>
     );
   }
