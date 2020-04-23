@@ -13,8 +13,39 @@ class VolunteerMembers extends Component {
         super(props);
 
         this.state = {
-            volunteers: this.props.volunteers
+            volunteers: null,
+            rows: null,
+            loading: true
         };
+    }
+
+    setRows = () => {
+        if(!this.state.volunteers) {return;}
+        let rows = [];
+        console.log(this.props)
+        for(var i = 0; i < this.props.volunteers.length; i++) {
+            let volunteer = this.props.volunteers[i];
+            rows.push(
+            <tr>
+                <td><FontAwesomeIcon icon={faUser} /></td>
+                <td>
+                    <h6 className="mb-1">{volunteer.name}</h6>
+                </td>
+                <td>
+                    <h6 className="mb-1">{volunteer.volunteerShifts.length}</h6>
+                </td>
+                <td>
+                    <h6 className="mb-1">{volunteer.volunteerShifts.length}</h6>
+                </td>
+            </tr>)
+        }
+        this.setState({rows});
+        this.setState({loading: false});
+    }
+
+    componentDidMount() {
+        this.setState({volunteers: this.props.volunteers});
+        this.setRows();
     }
 
     
@@ -30,7 +61,6 @@ class VolunteerMembers extends Component {
                             <tr>
                                 <th></th>
                                 <th>Name</th>
-                                <th>Events</th>
                                 <th>Shifts</th>
                                 <th>Unverified</th>
                                 <th></th>
@@ -38,21 +68,7 @@ class VolunteerMembers extends Component {
                         </thead>
                         <tbody>
                             {this.state.volunteers && this.state.volunteers.length > 0 ?
-                                <tr>
-                                <td><FontAwesomeIcon icon={faUser} /></td>
-                                <td>
-                                    <h6 className="mb-1"></h6>
-                                </td>
-                                <td>
-                                    <h6 className="mb-1"></h6>
-                                </td>
-                                <td>
-                                    <h6 className="mb-1"></h6>
-                                </td>
-                                <td>
-                                    <h6 className="text-muted">  </h6>
-                                </td>
-                            </tr>
+                                this.state.rows
                             :
                             <h6>No members Found</h6>
                             }

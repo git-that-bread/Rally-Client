@@ -18,6 +18,8 @@ class Volunteers extends Component {
 
         this.state = {
             loading: true,
+            volunteers: null,
+            pendingVolunteers: null,
             user: null
         };
     }
@@ -60,7 +62,7 @@ class Volunteers extends Component {
                 <Row>
                     <Col md={10}>
                         <Row>
-                            {this.loadingVolunteers ? 
+                            {this.loadingVolunteers && !this.state.volunteers  ? 
                                 <div className={DashboardStyle.loader}>
                                 <FontAwesomeIcon icon={faSpinner} />
                                     Loading members...
@@ -70,7 +72,7 @@ class Volunteers extends Component {
                             }
                         </Row>
                         <Row>
-                        {this.loadingPendingVolunteers ? 
+                        {this.loadingPendingVolunteers && !this.state.pendingVolunteers ? 
                                 <div className={DashboardStyle.loader}>
                                 <FontAwesomeIcon icon={faSpinner} />
                                     Loading pending requests...

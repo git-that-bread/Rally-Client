@@ -1,10 +1,12 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Alert } from "react-bootstrap";
 import { getJwt } from './helpers/jwt';
 import { useHistory } from 'react-router-dom';
+import { UserContext } from './UserContext';
 import "../Login.css";
 
-const LoginVolunteer = () => {
+const Logout = () => {
+    const userContext = useContext(UserContext);
     const history = useHistory();
     const jwt = getJwt();
     if(!jwt) {
@@ -23,6 +25,10 @@ const LoginVolunteer = () => {
     }
     localStorage.removeItem('user-jwt');
     
+    userContext.setUser(null)
+
+
+    
     setTimeout(() => { 
         history.replace('/');
     }, 5000)
@@ -37,4 +43,4 @@ const LoginVolunteer = () => {
     );
 }
 
-export default LoginVolunteer;
+export default Logout;
