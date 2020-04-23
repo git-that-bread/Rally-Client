@@ -9,19 +9,18 @@ import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import { withRouter } from 'react-router-dom';
 import axios from 'axios';
 import "../Login.css";
+import moment from 'moment';
 
-class CreateEvent extends Component {
+class CreateShift extends Component {
     static contextType = UserContext;
     constructor(props) {
         super(props);
 
         this.state = {
             showModal: false,
-            name: '',
             startTime: new Date(),
             endTime: new Date(),
-            location: '',
-            organization: '',
+            spots: 0,
             error: null
         };
     }
@@ -31,10 +30,9 @@ class CreateEvent extends Component {
     };
     handleShow = () => {
         this.setState({showModal: true});
-    };
-
-    setEventName = (eventName) => {
-        this.setState({eventName})
+        if(this.state.shiftFromCalendarRange) {
+            this.setState({shiftFromCalendarRange: null})
+        }
     };
     
     setStartTime = (date) => {
@@ -45,29 +43,28 @@ class CreateEvent extends Component {
         this.setState({ endTime: date });
     };
 
-    setOrganization = (organization) => {
-        this.setState({organization});
+    setSpots = (spots) => {
+        this.setState({spots});
     }
 
-    setLocation = (location) => {
-        this.setState({location});
-    }
 
 
 
     handleSubmit = (e) => {
         console.log("submitted")
         e.preventDefault(); // avoids page reload
-        const newEvent = {
-            eventName: this.state.eventName,
-            organization: this.state.organization,
-            location: this.state.location,
+        const newShift = {
             startTime: this.state.startTime,
-            endTime: this.state.endTime
+            endTime: this.state.endTime,
+            maxSpots: this.state.spots,
+            eventId: this.props.event._id,
+            organizationId: this.props.event.organization
+
         }
-        axios.post(`${process.env.REACT_APP_API_URL}/admin/event`, newEvent).then((res) => {
+        axios.post(`${process.env.REACT_APP_API_URL}/admin/shift`, newShift).then((res) => {
             console.log(res);
             this.handleClose();
+            this.props.history.replace(`/dashboard/events/${this.props.event._id}`);
            // window.location.reload();
         }).catch((error) => {
             console.error(error);
@@ -77,55 +74,55 @@ class CreateEvent extends Component {
     }
 
     componentDidMount() {
-        this.setOrganization(this.context.user.underlyingUser.organization);
+        if(this.props.shiftFromCalendarRange) {
+            console.log("proppppps***")
+            this.setStartTime(this.props.shiftFromCalendarRange.start);
+            this.setEndTime(this.props.shiftFromCalendarRange.end);
+            this.handleShow();
+        }
     }
 
     render() {
         return(
             <div>
                 <Button variant="primary" onClick={this.handleShow}>
-                    Create New Event
+                    Add Shift
                 </Button>
                 <Modal show={this.state.showModal} onHide={this.handleClose}>
                     { this.state.error &&
                         <ErrorMessage errorMessage={this.state.error.message}></ErrorMessage>
                     }
                     <Modal.Header closeButton>
-                    <Modal.Title>Create an Event</Modal.Title>
+                    <Modal.Title>Create a Shift</Modal.Title>
                     </Modal.Header>
-                    <Modal.Body>
+                    <Modal.Body> 
                         <form onSubmit={this.handleSubmit}>
-                            <FormGroup controlId="name" bssize="large">
-                                <FormLabel>Event Name</FormLabel>
-                                <FormControl
-                                    autoFocus
-                                    type="text"
-                                    value={this.name}
-                                    onChange={e => this.setEventName(e.target.value)}
-                                />
-                            </FormGroup>
-                            <FormGroup controlId="event-start-time" bssize="large">
-                                <FormLabel> Event Start Time </FormLabel>
+                            <FormGroup  bssize="large">
+                                <FormLabel> Shift Start Time </FormLabel>
                                 <DateTimePicker
+                                    minTime={this.props.event.startTime}
+                                    maxTime={this.props.event.endTime}
                                     onChange={this.setStartTime}
                                     value={this.state.startTime}
                                 />
                             </FormGroup>
                             <FormGroup controlId="event-end-time" bssize="large">
-                                <FormLabel> Event End Time </FormLabel>
+                                <FormLabel> Shift End Time </FormLabel>
                                 <DateTimePicker
+                                    minTime={moment(this.props.event.startTime)}
+                                    maxTime={moment(this.props.event.endTime)}
                                     onChange={this.setEndTime}
                                     value={this.state.endTime}
                                 />
                             </FormGroup>
                           
                             <FormGroup controlId="location" bssize="large">
-                                <FormLabel> Location </FormLabel>
-                                <FormControl
+                                <FormLabel> Spots </FormLabel>
+                                <FormControl size="small"
                                     autoFocus
-                                    type="text"
-                                    value={this.location}
-                                    onChange={e => this.setLocation(e.target.value)}
+                                    type="number"
+                                    value={this.spots}
+                                    onChange={e => this.setSpots(e.target.value)}
                                 />
                             </FormGroup>
                         </form>
@@ -146,4 +143,4 @@ class CreateEvent extends Component {
     }
 }
 
-export default withRouter(CreateEvent);
+export default withRouter(CreateShift);

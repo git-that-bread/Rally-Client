@@ -4,66 +4,90 @@
 import React, {Component} from 'react';
 import { Row, Col, Card, Table, Button} from "react-bootstrap";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faUser } from '@fortawesome/free-solid-svg-icons';
+import { faSpinner } from '@fortawesome/free-solid-svg-icons';
+import VolunteerMembers from './VolunteerMembers.component';
+import VolunteerRequests from './VolunteerRequests.component';
+import {UserContext} from './UserContext';
+import axios from 'axios';
+import DashboardStyle from './Dashboard.module.css';
 
 class Volunteers extends Component {
+    static contextType = UserContext;
     constructor(props) {
         super(props);
 
         this.state = {
-            user: undefined,
-            userType: undefined
+            loading: true,
+            user: null
         };
     }
 
+    getVolunteers() {
+        axios.get(`${process.env.REACT_APP_API_URL}/admin/volunteers/${this.context.user.underlyingUser.organization}`)
+        .then((res) => {
+            console.log(res);
+            this.setState({volunteers:res.data.Volunteers});
+            this.setState({loadingVolunteers: false});
+        }).catch((error) => {
+            console.log(error);
+            this.setState({error: error.response ? error.response.data.error : error});
+        });
+    }
+
+    getPendingVolunteers() {
+        axios.get(`${process.env.REACT_APP_API_URL}/admin/volunteers/pending/${this.context.user.underlyingUser.organization}`)
+        .then((res) => {
+            console.log(res);
+            this.setState({pendingVolunteers:res.data.Volunteers});
+            this.setState({loadingPendingVolunteers: false});
+        }).catch((error) => {
+            console.log(error);
+            this.setState({error: error.response ? error.response.data.error : error});
+        });
+    }
+
+    componentDidMount() {
+        this.setState({user: this.context.user});
+        this.getVolunteers();
+        this.getPendingVolunteers();
+
+    }
+    
     
     render() {
         return(
             <div>
                 <Row>
-                    <Col className="lg=12 col-12 md=4">
-                    <Card className='Recent-Users'>
-                            <Card.Header>
-                                <Card.Title as='h5'>Members</Card.Title>
-                            </Card.Header>
-                            <Card.Body className='px-0 py-2'>
-                                <Table responsive hover>
-                                    <thead>
-                                        <tr>
-                                            <th></th>
-                                            <th>Name</th>
-                                            <th>Event</th>
-                                            <th>Shift</th>
-                                            <th>Date</th>
-                                            <th></th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td><FontAwesomeIcon icon={faUser} /></td>
-                                            <td>
-                                                <h6 className="mb-1">Grant Echeverria</h6>
-                                            </td>
-                                            <td>
-                                                <h6 className="mb-1">Event Name</h6>
-                                            </td>
-                                            <td>
-                                                <h6 className="mb-1">Shift</h6>
-                                            </td>
-                                            <td>
-                                                <h6 className="text-muted"> 11 MAY 12:56 </h6>
-                                            </td>
-                                            <td><Button variant="success">Approve</Button>{' '}  <Button variant="danger">Reject</Button>{' '}</td>
-                                        </tr>
-                                    </tbody>
-                                </Table>
-                            </Card.Body>
-                        </Card>
+                    <Col md={10}>
+                        <Row>
+                            {this.loadingVolunteers ? 
+                                <div className={DashboardStyle.loader}>
+                                <FontAwesomeIcon icon={faSpinner} />
+                                    Loading members...
+                                </div>
+                                :
+                                <VolunteerMembers volunteers={this.state.volunteers}></VolunteerMembers>
+                            }
+                        </Row>
+                        <Row>
+                        {this.loadingPendingVolunteers ? 
+                                <div className={DashboardStyle.loader}>
+                                <FontAwesomeIcon icon={faSpinner} />
+                                    Loading pending requests...
+                                </div>
+                                :
+                                <VolunteerRequests volunteers={this.state.pendingVolunteers}></VolunteerRequests>
+                            }
+                            
+                        </Row>
+                    </Col>
+                    <Col md={2}>
                     </Col>
                 </Row>
+                
+                
             </div>
         );
-        
     }
 }
 

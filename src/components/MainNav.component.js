@@ -27,7 +27,7 @@ class MainNav extends Component {
                 <Nav className="mr-auto">
                     <Nav.Link className="mainNav" as={Link} to="/" >Home</Nav.Link>
                     { !this.context.user &&
-                    <Nav.Link as={Link} to="/" >Create an Organization Account</Nav.Link>
+                    <Nav.Link as={Link} to="/signupOrganization" >Create an Organization Account</Nav.Link>
                     }
                 </Nav>
                 
@@ -47,9 +47,6 @@ class MainNav extends Component {
                         </Nav.Link>
                     }
                 </Nav>
-                
-
-               
                 </Navbar.Collapse>
                 </Navbar>
                

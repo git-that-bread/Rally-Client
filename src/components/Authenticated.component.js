@@ -34,19 +34,21 @@ class Authenticated extends Component {
         if(!jwt) {
            // redirect
            this.props.history.replace('/login');
+        } else {
+            axios.get(`${process.env.REACT_APP_API_URL}/auth/getUser`, {headers: {Authorization: `Bearer ${jwt}`}}).then((res) => {
+                console.log(res)
+                this._initUser(res.data.user, res.data.user.userType);
+            }).catch((error) => {
+                console.log(error.response);
+                localStorage.removeItem('user-jwt');
+                // TODO: generate proper error message
+                // redirect user to login
+                this.setState({error: true});
+                this.props.history.replace('/login');
+            });
         }
 
-        axios.get(`${process.env.REACT_APP_API_URL}/auth/getUser`, {headers: {Authorization: `Bearer ${jwt}`}}).then((res) => {
-            console.log(res)
-            this._initUser(res.data.user, res.data.user.userType);
-        }).catch((error) => {
-            console.log(error.response);
-            localStorage.removeItem('user-jwt');
-            // TODO: generate proper error message
-            // redirect user to login
-            this.setState({error: true});
-            this.props.history.replace('/login');
-        })
+        
     }
     render() {
         if(!this.state.user) {

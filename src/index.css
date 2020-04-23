@@ -1,4 +1,4 @@
-.btn, .btn:hover, .btn:active, .btn:visited, .btn:focus  {
+.redButton, .redButton:hover, .redButton:active, .redButton:visited, .redButton:focus  {
     background-color: rgb(221, 67, 67) !important;
     outline: none !important;
     border-style: none !important;
