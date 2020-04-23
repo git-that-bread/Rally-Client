@@ -15,7 +15,7 @@ const Home = () => {
                         Start using Rally today!
                     </p>
                     <p>
-                        <Button className={IndexStyle.landingButton} href="/learnMore"> Learn More </Button>
+                        <Button className="redButton" href="/learnMore"> Learn More </Button>
                     </p>
                 </Col>
                 <Col className={IndexStyle.landingInfo}>
@@ -23,7 +23,7 @@ const Home = () => {
                 </Col>
             </Row>
            </Jumbotron>
-           <Row classname={IndexStyle.landing} id={IndexStyle.moreInfo}>
+           <Row className={IndexStyle.landing} id={IndexStyle.moreInfo}>
                 <Col>
                 <Card
                 style={{ height: '20rem'} , {width: '30rem'}}> 
@@ -32,7 +32,7 @@ const Home = () => {
                             <Card.Text>
                                 Manage, schedule and coordinate volunteering events through our calendar view UI.
                             </Card.Text>
-                            <Button variant="primary" href="/learnMore#features"> Learn More</Button>
+                            <Button className="redButton" href="/learnMore#features"> Learn More</Button>
                         </Card.Body>
                     </Card>
                 </Col>
@@ -45,7 +45,7 @@ const Home = () => {
                         <Card.Text>
                             Manage organization members and volunteers all in one place.
                         </Card.Text>
-                        <Button variant="primary" href="/learnMore#features"> Learn More </Button>
+                        <Button className="redButton" href="/learnMore#features"> Learn More </Button>
                     </Card.Body>
                 </Card>
                 
@@ -59,7 +59,7 @@ const Home = () => {
                         <Card.Text>
                             Rally lets volunteers discover nonprofits and schedule their participation in events.
                         </Card.Text>
-                        <Button variant="primary" href="/learnMore#features"> Learn More </Button>
+                        <Button className="redButton" href="/learnMore#features"> Learn More </Button>
                     </Card.Body>
                 </Card>
                 </Col>

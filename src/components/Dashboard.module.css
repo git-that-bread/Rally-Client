@@ -1,27 +1,24 @@
 .wrapper {
-    background-color: #f4f7fa;
+    background-color: #eff0f3;
+    margin: 0;
 }
 
-.mainWrapper {
-
-    background-color: #f8f9fa;
+.dashboard#dashboardWrapper {
+    width: 100%;
+    background-color: #eff0f3;
 }
 
 .sidebar {
-    /* position: fixed;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    z-index: 100; */
     padding: 20px 0 0;
     min-height: 100vh !important;
     font-family: sans-serif; 
-    
-    
+}
+
+.displayRight {
+    float: right;
 }
 
 .sidebar#sidebarWrapper{
-    
     margin-left: -1rem;
     -webkit-transition: margin .25s ease-out;
     -moz-transition: margin .25s ease-out;
@@ -30,13 +27,21 @@
     min-height: 100vh !important;
     max-width: 300px;
     background-color: #252524;
-    /* box-shadow: inset -1px 0 0 rgba(0, 0, 0, .1); */
+    box-shadow: inset -1px 0 0 rgba(0, 0, 0, .1);
     
 }
 
-.dashboardTitleWrapper {
-    background-color: #f4f5f9;
+.hidden {
+    visibility: hidden;
 }
+
+.visible {
+    visibility: visible;
+}
+
+.dashboardTitleWrapper {
+}
+
 .dashboardTitle {
     text-align: center;
     padding: 20px 20px 20px 35px;
@@ -45,9 +50,7 @@
 
 }
 
-
-
-.sidebar#pageContentWrapper {
+.mainContentWrapper {
     width: 100%;
     background-color: #eff0f3;
 }
@@ -71,6 +74,35 @@
     width: 98%
 }
 
+.shiftCalendarWrapper {
+    height: 500px;
+}
+
+.loader {
+    margin: auto 0;
+    width: 200px;
+}
+
+.events#eventsWrapper {
+    width: 100%;
+    margin: 10px;
+}
+
+.events#upcomingEvents {
+    width: 100%;
+    margin: 10px;
+}
+
+.events#pastEvents {
+    width: 100%;
+    margin: 10px;
+}
+
+
+.events#upcomingEventsWrapper {
+    width: 100%;
+}
+
 #calendarWrapper {
     margin: 10px;
     width: 100%;
@@ -88,4 +120,9 @@
   text-align: center;
 }
 
+
+.volunteerTable {
+    margin: 10px;
+    width: 100%;
+}
 
