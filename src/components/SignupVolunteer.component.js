@@ -54,8 +54,8 @@ class SignupVolunteer extends Component {
             // TODO: LOGIN and show dashboard
             //localStorage.setItem('user-jwt', res.data.token);
         }).catch((error) => {
-            console.log(error.response.data.error)
-            this.setState({error: error.response.data.error});
+            console.log(error)
+            this.setState({error: error.response ? error.response.data.error : error});
         })
     }
 

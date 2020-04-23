@@ -73,8 +73,8 @@ class SignupOrganization extends Component {
             console.log(res);
             this.setState({success: true});
         }).catch((error) => {
-            console.log(error.response.data.error)
-            this.setState({error: error.response.data.error});
+            console.log(error)
+            this.setState({error: error.response ? error.response.data.error : error});
         })
         
     }
