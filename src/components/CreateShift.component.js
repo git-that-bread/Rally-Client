@@ -30,6 +30,9 @@ class CreateShift extends Component {
     };
     handleShow = () => {
         this.setState({showModal: true});
+        if(this.state.shiftFromCalendarRange) {
+            this.setState({shiftFromCalendarRange: null})
+        }
     };
     
     setStartTime = (date) => {
@@ -61,6 +64,7 @@ class CreateShift extends Component {
         axios.post(`${process.env.REACT_APP_API_URL}/admin/shift`, newShift).then((res) => {
             console.log(res);
             this.handleClose();
+            this.props.history.replace(`/dashboard/events/${this.props.event._id}`);
            // window.location.reload();
         }).catch((error) => {
             console.error(error);
@@ -70,6 +74,12 @@ class CreateShift extends Component {
     }
 
     componentDidMount() {
+        if(this.props.shiftFromCalendarRange) {
+            console.log("proppppps***")
+            this.setStartTime(this.props.shiftFromCalendarRange.start);
+            this.setEndTime(this.props.shiftFromCalendarRange.end);
+            this.handleShow();
+        }
     }
 
     render() {

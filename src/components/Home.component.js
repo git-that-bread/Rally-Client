@@ -15,7 +15,7 @@ const Home = () => {
                         Start using Rally today!
                     </p>
                     <p>
-                        <Button className={IndexStyle.landingButton}> Learn More </Button>
+                        <Button className="redButton" > Learn More </Button>
                     </p>
                 </Col>
                 <Col className={IndexStyle.landingInfo}>
@@ -31,7 +31,7 @@ const Home = () => {
                             <Card.Text>
                                 Manage, schedule and coordinate volunteering events through our calendar view UI.
                             </Card.Text>
-                            <Button variant="primary"> Learn More</Button>
+                            <Button className="redButton"> Learn More</Button>
                         </Card.Body>
                     </Card>
                 </Col>
@@ -43,7 +43,7 @@ const Home = () => {
                         <Card.Text>
                             Manage organization members and volunteers all in one place.
                         </Card.Text>
-                        <Button variant="primary"> Learn More </Button>
+                        <Button className="redButton"> Learn More </Button>
                     </Card.Body>
                 </Card>
                 
@@ -56,7 +56,7 @@ const Home = () => {
                         <Card.Text>
                             Rally lets volunteers discover nonprofits and schedule their participation in events.
                         </Card.Text>
-                        <Button variant="primary"> Learn More </Button>
+                        <Button className="redButton"> Learn More </Button>
                     </Card.Body>
                 </Card>
                 </Col>
