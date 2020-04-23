@@ -112,7 +112,7 @@ class SignupVolunteer extends Component {
                     />
                     </FormGroup>
                     <Button block bssize="large" disabled={!this.validateForm()} type="submit">
-                        Signup
+                        Sign Up
                     </Button>
                 </form>
             </div>
