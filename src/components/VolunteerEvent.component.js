@@ -132,6 +132,7 @@ class VolunteerEvent extends Component {
         this.setState({currentShift: shiftEvent.shift});
     }
 
+
     componentDidMount() {
         const jwt = getJwt();
         if(!jwt) {
@@ -193,6 +194,8 @@ class VolunteerEvent extends Component {
                                             localizer={localizer}
                                             onSelectEvent={this.showShiftDetails}
                                             onSelecting={this.handleCalendarSelect}
+                                            min={new Date(2020, 10, 0, 6, 0, 0)}
+                                            max={new Date(2020, 10, 0, 22, 0, 0)} 
                                         />
                                             </div>
                                         </Card.Body>

@@ -146,6 +146,8 @@ class UpcomingEventsPreview extends Component {
                         defaultView={'week'}
                         localizer={localizer}
                         style={{ height: 500 }}
+                        min={new Date(2020, 10, 0, 6, 0, 0)}
+                        max={new Date(2020, 10, 0, 22, 0, 0)} 
                     />
                     }
                     </div>
